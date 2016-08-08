@@ -5,7 +5,6 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 object PublishSubscribe extends App {
   implicit val system = ActorSystem()
-
   val HOST_ADDRESS: String = "localhost"
 
   val factory = new ConnectionFactory()
@@ -21,7 +20,7 @@ object PublishSubscribe extends App {
   connection ! CreateChannel(ChannelActor.props(setupPublisher), Some("publisher"))
 
 
-  /*def setupSubscriber(channel: Channel, self: ActorRef) {
+  def setupSubscriber(channel: Channel, self: ActorRef) {
     val queue = channel.queueDeclare().getQueue
     channel.queueBind(queue, exchange, "")
     val consumer = new DefaultConsumer(channel) {
@@ -31,7 +30,7 @@ object PublishSubscribe extends App {
     }
     channel.basicConsume(queue, true, consumer)
   }
-  connection ! CreateChannel(ChannelActor.props(setupSubscriber), Some("subscriber"))*/
+  connection ! CreateChannel(ChannelActor.props(setupSubscriber), Some("subscriber"))
 
 
   Future {
